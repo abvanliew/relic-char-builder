@@ -1,1 +1,1 @@
-# relic-char-builder
+# relic-character-builder
