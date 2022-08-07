@@ -9,11 +9,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.grid {
+  display: grid;
+  grid-column: [spacer-left] minmax( 0, auto ) [main-left] minmax( 500px, 800px ) [main-right] minmax( 0, auto ) [spacer-right];
+  grid-template-areas: 
+    "header header header"
+    ".      main   .     "
 }
 
-/* div {
+.gridHeader {
+  grid-area: header;
   display: flex;
-  flex-direction: column;
-} */
+}
+
+.gridMain {
+  grid-area: main;
+}

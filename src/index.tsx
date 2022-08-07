@@ -1,8 +1,21 @@
 import { createRoot } from 'react-dom/client';
-import App from './App';
+// import {
+//   BrowserRouter,
+//   Routes,
+//   Route,
+// } from "react-router-dom";
+import Main from 'views/main';
 import { Tab } from 'views/tabs';
-import 'style/index.css';
 
-const container = document.getElementById('app');
-const root = createRoot(container!);
-root.render(<App tab={Tab.Home} />);
+const root = createRoot( document.getElementById( 'root' )! );
+root.render( <Main tab={Tab.Home}/> )
+// root.render(
+//   <BrowserRouter>
+//     <Routes>
+//       <Route path="/">
+//         <Route index element={ <Main tab={Tab.Home}/> }/>
+//         <Route path="editor" element={ <Main tab={Tab.CharEditor}/> }/>
+//       </Route>
+//     </Routes>
+//   </BrowserRouter>
+// );

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "ESNext",
     "lib": [
       "dom",
@@ -19,18 +20,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-      "styles/*": [ "./styles/*" ],
-      "views/*": [ "./src/views/*" ],
-      "GameLibrary": [ "./src/gameLibrary/library" ],
-      "charEditor/*": [ "./src/charEditor/*" ],
-    }
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules", 
-    "build"
+    "node_modules/", 
+    "build/"
   ]
 }

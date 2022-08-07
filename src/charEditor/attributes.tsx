@@ -1,83 +1,113 @@
-import { useRef } from 'react';
-import { AttribType, AttribDef } from 'GameLibrary'
-
-{/*<Attributes 
-  remaining={15} 
-  min={0} max={5} 
-  values={curAppData.character.attributes} 
-  defs={curAppData.library.attributes} 
-  changeHandler={setAttribute} 
-/> */}
+import { useRef } from 'react'
+import GameLibrary from 'gameData/library'
+import { AttribType, AttribDef, AttribValues } from 'gameData/attributes'
 
 interface AttributeProps {
   remaining: number;
   min: number;
   max: number;
-  values: Array<number>;
-  defs: Array<AttribDef>;
-  changeHandler: (index: number, value: number) => number;
+  values: AttribValues;
+  library: GameLibrary;
+  propertyHandler: ( newValue: any ) => void;
 }
 
-function Attributes( { remaining, min, max, values, defs, changeHandler }: AttributeProps ): JSX.Element {
+function Attributes( { ...props }: AttributeProps ): JSX.Element {
+  console.log( props )
+
+  let abilities: Array<AttribLineProps> = []
+  let defenses: Array<AttribLineProps> = []
+
+  props.library.attribDefs.forEach( ( def: AttribDef ) => { 
+    let attribProps: AttribLineProps = { 
+      id: def.id,
+      name: def.name,
+      ranks: props.values[def.id],
+      min: props.min, max: props.max,
+      type: def.type,
+      propertyHandler: props.propertyHandler,
+    }
+
+    if( def.type === AttribType.Abilities ) {
+      abilities.push( attribProps )
+    } else 
+    if ( def.type === AttribType.Defenses ) {
+      defenses.push( attribProps )
+    }
+  } )
+
   return (
     <>
-    <div>Remaining Ranks: {remaining}</div>
+    <div>Remaining Ranks: {props.remaining}</div>
     <div>Abilities</div>
-    {/* <div>
-      { defs.map( ( def ) => {
-        if( def.type !== AttribType.Abilities ) { return (<></>); }
-        return ( <AttribLine key={index.toString()} id={def.id} def={def} ranks={values[index]} min={min} max={max} changeHandler={changeHandler} /> );
+    <div>
+      { abilities.map( ( props: AttribLineProps ) => {
+        return (
+          <AttribLine 
+            key = { props.id } 
+            id = { props.id } 
+            name = { props.name } 
+            ranks = { props.ranks } 
+            min = { props.min } 
+            max = { props.max } 
+            type = { props.type } 
+            propertyHandler = { props.propertyHandler } 
+          />
+        );
       } ) }
     </div>
     <div>Defenses</div>
     <div>
-      { defs.map( ( def, index ) => {
-        if( def.type !== AttribType.Defenses ) { return (<></>); }
-        return ( <AttribLine key={index.toString()} id={def.id} def={def} ranks={values[index]} min={min} max={max} changeHandler={changeHandler} /> );
+      { defenses.map( ( props: AttribLineProps ) => {
+        return (
+          <AttribLine 
+            key = { props.id } 
+            id = { props.id } 
+            name = { props.name } 
+            ranks = { props.ranks } 
+            min = { props.min } 
+            max = { props.max } 
+            type = { props.type } 
+            propertyHandler = { props.propertyHandler } 
+          />
+        );
       } ) }
-    </div> */}
+    </div>
     </>
   )
 }
 
 interface AttribLineProps {
-  id: number;
+  id: string;
   name: string;
   ranks: number;
   min: number;
   max: number;
   type: AttribType;
-  changeHandler: (index: number, value: number) => number;
+  propertyHandler: ( newValue: any ) => void;
 }
 
-function AttribLine( { id, name, ranks, min, max, type, changeHandler }:AttribLineProps ): JSX.Element {
+function AttribLine( { ...props }:AttribLineProps ): JSX.Element {
   const inputValue = useRef<HTMLInputElement>(null!);
-  function inc() { set( 1 ) }
-  function dec() { set( -1 ) }
-  function set( delta: number ) { changeHandler( id, delta + ranks ) }
-  function change() {}
-
-  console.log( name );
+  function change() {
+    let inputRanks: number = parseInt( inputValue.current.value );
+    inputRanks = inputRanks < props.min ? props.min : inputRanks > props.max ? props.max : inputRanks
+    props.propertyHandler( { attributes: { [props.id]: inputRanks } } ) 
+  }
 
   return (
     <>
     <div>
       <div>
-        <label>{name}</label>
+        <label>{props.name}</label>
         <input 
           ref={inputValue} 
           type="text" 
           inputMode="numeric" 
-          pattern="[0-9]+"
-          value={ranks}
-          onChange={change}
+          pattern="[0-9]+" 
+          value={props.ranks} 
+          onChange={change} 
         />
       </div>
-      <div>
-        <div onClick={dec}>-</div>
-        <div onClick={inc}>+</div>
-      </div>
-      <div></div>
     </div>
     </>
   )
