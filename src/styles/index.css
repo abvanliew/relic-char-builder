@@ -9,6 +9,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a.plain {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 .grid {
   display: grid;
   grid-column: [spacer-left] minmax( 0, auto ) [main-left] minmax( 500px, 800px ) [main-right] minmax( 0, auto ) [spacer-right];
