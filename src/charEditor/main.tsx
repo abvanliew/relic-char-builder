@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { Outlet, Route, Routes } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import GameLibrary from "relic/library";
+import Character from "relic/characters/character";
+
 import CharTraits from "charEditor/traits";
-import GameLibrary from "gameData/library";
-import Character from "gameData/character";
-import Attributes from './attributes';
+import Attributes from 'charEditor/attributes';
 
 interface CharEditorProps {
-  library: GameLibrary;
+  library: GameLibrary
 }
 
 function CharacterEditor( { ...props }: CharEditorProps ): JSX.Element {
@@ -15,28 +19,54 @@ function CharacterEditor( { ...props }: CharEditorProps ): JSX.Element {
     setState( { ...character, ...newValue } )
   }
 
+  function setAttribute( key: string, value: number ) {
+    let attributes: Map<string, number> = new Map<string, number>( character.attributes )
+    attributes.set( key, value )
+    setState( { ...character, attributes: attributes } )
+  }
+
+  function Description():JSX.Element {
+    return (
+      <>
+        <CharTraits 
+          name={character.name} 
+          race={character.race} 
+          level={character.level} 
+          minLevel={props.library.minLevel} 
+          maxLevel={props.library.maxLevel} 
+          propertyHandler={setProperty} 
+        />
+        <Attributes 
+          total={ props.library.getAttribTotal( character ) } 
+          min={ props.library.minRanks } 
+          max={ props.library.maxRanks } 
+          attributes={ character.attributes } 
+          library={ props.library } 
+          attribHandler={ setAttribute } 
+        />
+      </>
+    )
+  }
+
+  return (
+    <>
+    <Routes>
+      <Route path="/" element={<EditorLayout />} >
+        <Route index element={ <Description/> }/>
+        <Route path="description" element={ <Description/> } />
+      </Route>
+    </Routes>
+    </>
+  )
+}
+
+function EditorLayout():JSX.Element {
   return (
     <>
     <div>
-      <CharTraits 
-        name={character.name} 
-        race={character.race} 
-        level={character.level} 
-        minLevel={props.library.minLevel} 
-        maxLevel={props.library.maxLevel} 
-        propertyHandler={setProperty} 
-      />
+      <Link className="plain" to="description">Description</Link>
     </div>
-    <div>
-      <Attributes 
-        remaining={ props.library.getAttribTotal( character ) } 
-        min={ props.library.minRanks } 
-        max={ props.library.maxRanks } 
-        values={ character.attributes } 
-        library={ props.library } 
-        propertyHandler={ setProperty } 
-      />
-    </div>
+    <Outlet/>
     </>
   )
 }

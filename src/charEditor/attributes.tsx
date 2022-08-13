@@ -1,76 +1,56 @@
-import { useRef } from 'react'
-import GameLibrary from 'gameData/library'
-import { AttribType, AttribDef, AttribValues } from 'gameData/attributes'
+import { useRef } from 'react';
+import GameLibrary from 'relic/library';
+import { AttribType } from 'relic/characters/attributes';
 
 interface AttributeProps {
-  remaining: number;
+  total: number;
   min: number;
   max: number;
-  values: AttribValues;
+  attributes: Map<string, number>;
   library: GameLibrary;
-  propertyHandler: ( newValue: any ) => void;
+  attribHandler: ( key: string, value: number ) => void;
 }
 
 function Attributes( { ...props }: AttributeProps ): JSX.Element {
-  console.log( props )
+  let abilities: Array<JSX.Element> = []
+  let defenses: Array<JSX.Element> = []
+  let current: number = 0;
 
-  let abilities: Array<AttribLineProps> = []
-  let defenses: Array<AttribLineProps> = []
+  for( let val of props.attributes.values() ) {
+    current += val
+  }
 
-  props.library.attribDefs.forEach( ( def: AttribDef ) => { 
-    let attribProps: AttribLineProps = { 
-      id: def.id,
-      name: def.name,
-      ranks: props.values[def.id],
-      min: props.min, max: props.max,
-      type: def.type,
-      propertyHandler: props.propertyHandler,
-    }
-
+  for( let [ key, def ] of props.library.attributes ) {
+    let attribLine: JSX.Element = (
+      <AttribLine 
+        key = { key } 
+        id = { key } 
+        name = { def.detail.shortName } 
+        ranks = { props.attributes.get( key )??props.min } 
+        min = { props.min } 
+        max = { props.max } 
+        type = { def.type } 
+        attribHandler = { props.attribHandler } 
+      />
+    )
     if( def.type === AttribType.Abilities ) {
-      abilities.push( attribProps )
+      abilities.push( attribLine )
     } else 
     if ( def.type === AttribType.Defenses ) {
-      defenses.push( attribProps )
+      defenses.push( attribLine )
     }
-  } )
+  }
 
   return (
     <>
-    <div>Remaining Ranks: {props.remaining}</div>
+    <div>Remaining Ranks: { props.total - current }</div>
     <div>Abilities</div>
     <div>
-      { abilities.map( ( props: AttribLineProps ) => {
-        return (
-          <AttribLine 
-            key = { props.id } 
-            id = { props.id } 
-            name = { props.name } 
-            ranks = { props.ranks } 
-            min = { props.min } 
-            max = { props.max } 
-            type = { props.type } 
-            propertyHandler = { props.propertyHandler } 
-          />
-        );
-      } ) }
+      { abilities.map( ( line: JSX.Element ) => { return line } ) }
     </div>
     <div>Defenses</div>
     <div>
-      { defenses.map( ( props: AttribLineProps ) => {
-        return (
-          <AttribLine 
-            key = { props.id } 
-            id = { props.id } 
-            name = { props.name } 
-            ranks = { props.ranks } 
-            min = { props.min } 
-            max = { props.max } 
-            type = { props.type } 
-            propertyHandler = { props.propertyHandler } 
-          />
-        );
-      } ) }
+      { defenses.map( ( line: JSX.Element ) => { return line } ) }
     </div>
     </>
   )
@@ -83,15 +63,15 @@ interface AttribLineProps {
   min: number;
   max: number;
   type: AttribType;
-  propertyHandler: ( newValue: any ) => void;
+  attribHandler: ( key: string, value: number ) => void;
 }
 
 function AttribLine( { ...props }:AttribLineProps ): JSX.Element {
   const inputValue = useRef<HTMLInputElement>(null!);
   function change() {
-    let inputRanks: number = parseInt( inputValue.current.value );
+    let inputRanks: number = parseInt( inputValue.current.value ) || props.min;
     inputRanks = inputRanks < props.min ? props.min : inputRanks > props.max ? props.max : inputRanks
-    props.propertyHandler( { attributes: { [props.id]: inputRanks } } ) 
+    props.attribHandler( props.id, inputRanks ) 
   }
 
   return (

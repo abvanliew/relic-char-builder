@@ -1,13 +1,12 @@
 import { nanoid } from 'nanoid';
-import { AttribValues } from 'gameData/attributes';
 
 class Character {
   id: string
   level: number
   name: string
   race: string
-  paths: any
-  attributes: AttribValues
+  paths: Array<string>
+  attributes: Map<string, number>
   features: any
   skills: any;
 
@@ -16,8 +15,8 @@ class Character {
     this.level = 1
     this.name = ""
     this.race = ""
-    this.paths = {}
-    this.attributes = {}
+    this.paths = []
+    this.attributes = new Map<string, number>()
     this.features = {}
     this.skills = {}
   }

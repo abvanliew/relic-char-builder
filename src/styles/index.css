@@ -16,7 +16,7 @@ a.plain {
 
 .grid {
   display: grid;
-  grid-column: [spacer-left] minmax( 0, auto ) [main-left] minmax( 500px, 800px ) [main-right] minmax( 0, auto ) [spacer-right];
+  grid-column: [spacer-left] minmax( 0, 1fr ) [main-left] minmax( 600px, 1200px ) [main-right] minmax( 0, 1fr ) [spacer-right];
   grid-template-areas: 
     "header header header"
     ".      main   .     "

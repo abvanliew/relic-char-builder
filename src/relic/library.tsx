@@ -1,21 +1,26 @@
-import Character from 'gameData/character';
-import { AttribDef, AttribValues, AttribDefs, AttribGrowth } from 'gameData/attributes';
+import Character from 'relic/characters/character';
+import { AttribDef, AttribDefs, AttribGrowth } from 'relic/characters/attributes';
+import { PathDef, PathDefs, PathGrowth } from 'relic/paths/paths';
 
 class GameLibrary {
   minLevel: number
   maxLevel: number
   minRanks: number
   maxRanks: number
-  attribDefs: Array<AttribDef>
+  attributes: Map<string, AttribDef>
   attribGrowth: Array<number>
+  paths: Map<string, PathDef>
+  pathGrowth: Map<number, Array<number>>
 
   constructor() {
     this.minLevel = 1
     this.maxLevel = 18
     this.minRanks = 0
     this.maxRanks = 5
-    this.attribDefs = AttribDefs()
+    this.attributes = AttribDefs()
     this.attribGrowth = AttribGrowth()
+    this.paths = PathDefs()
+    this.pathGrowth = PathGrowth()
   }
 
   NewCharacter(): Character {
@@ -24,14 +29,15 @@ class GameLibrary {
     return character
   }
 
-  DefaultAttributes(): AttribValues {
-    let attributes: AttribValues = {}
-    this.attribDefs.forEach( ( def:AttribDef ) => { attributes[def.id] = this.minRanks; } )
+  DefaultAttributes(): Map<string, number> {
+    let attributes: Map<string, number> = new Map<string, number>()
+    for( let key of this.attributes.keys() ) {
+      attributes.set( key, this.minRanks )
+    }
     return attributes
   }
 
   getAttribTotal( character: Character ): number {
-    console.log( character )
     return this.attribGrowth[ this.levelCap( character.level ) - 1 ]
   }
 
