@@ -14,19 +14,33 @@ a.plain {
   text-decoration: inherit; /* no underline */
 }
 
-.grid {
+.mainGrid {
   display: grid;
-  grid-column: [spacer-left] minmax( 0, 1fr ) [main-left] minmax( 600px, 1200px ) [main-right] minmax( 0, 1fr ) [spacer-right];
+  grid-column: minmax( 0, 1fr ) minmax( 600px, 1200px ) minmax( 0, 1fr );
   grid-template-areas: 
-    "header header header"
-    ".      main   .     "
+    "header  header  header"
+    "  .      body     .   "
 }
 
-.gridHeader {
+.mainGridHeader {
   grid-area: header;
   display: flex;
 }
 
-.gridMain {
-  grid-area: main;
+.mainGridBody {
+  grid-area: body;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.indent {
+  padding-left: 4px;
 }

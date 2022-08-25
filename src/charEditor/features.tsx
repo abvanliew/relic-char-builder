@@ -1,25 +1,21 @@
-import Character from "relic/characters/character";
-import GameLibrary from "relic/library";
+import RelicCharacter from "relic/character";
+import RelicLibrary from "relic/library";
 
 interface FeatureProps {
-  character: Character
-  library: GameLibrary
+  character: RelicCharacter
+  library: RelicLibrary
 }
 
 function Features( { ...props }: FeatureProps ):JSX.Element {
-
   function Features(): JSX.Element {
-    
     return (
       <>
-      
       </>
     )
   }
 
   return (
     <>
-
     </>
   )
 }

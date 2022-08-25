@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import RuleDetail from 'relic/rules';
+import RuleDetail from 'relic/library/rules';
 
 export interface PathDef {
   tier: number
@@ -11,9 +11,9 @@ export interface PathDef {
 
 export function PathDefs(): Map<string, PathDef> {
   return new Map<string, PathDef>( [
-    [ nanoid(), { tier: 0, details: { shortName: "Warrior", shortDescription: "Martial combatant" } } ],
-    [ nanoid(), { tier: 0, details: { shortName: "Wizard", shortDescription: "Arcane spellcaster" } } ],
-    [ nanoid(), { tier: 0, details: { shortName: "Cleric", shortDescription: "Divine spellcaster" } } ],
+    [ nanoid(), { tier: 0, details: { name: "Warrior", shortDescription: "Martial combatant" } } ],
+    [ nanoid(), { tier: 0, details: { name: "Wizard", shortDescription: "Arcane spellcaster" } } ],
+    [ nanoid(), { tier: 0, details: { name: "Cleric", shortDescription: "Divine spellcaster" } } ],
   ] )
 }
 

@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import Main from 'views/main';
+import App from 'app';
 
 const root = createRoot( document.getElementById( 'root' )! );
-root.render( <Main/> );
+root.render( <App/> );

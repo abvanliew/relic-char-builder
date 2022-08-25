@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-class Character {
+class RelicCharacter {
   id: string
   level: number
   name: string
@@ -22,4 +22,4 @@ class Character {
   }
 }
 
-export default Character;
+export default RelicCharacter;

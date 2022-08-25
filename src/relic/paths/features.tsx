@@ -1,6 +1,5 @@
-import { NamedRuleGroup, RuleElement } from "relic/rules";
+import { NamedRuleGroup } from "relic/library/rules";
 
 type Features = Map<string, NamedRuleGroup>
-export type FeatureElement = RuleElement;
 
 export default Features;

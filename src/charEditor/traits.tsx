@@ -54,19 +54,3 @@ function CharTraits( props: CharTraitProps ): JSX.Element {
 }
 
 export default CharTraits;
-
-
-
-// const inputRef = useRef<HTMLInputElement>(null!);
-// function setText()
-// {
-//   let trimed = inputRef.current.value.trim();
-//   if( !!trimed ) { setAppData( { ...curAppData, test: trimed } ) }
-// }
-// return (
-//   <>
-//     <input ref={inputRef} type="text"/>
-//     <button onClick={setText}>set</button>
-//     <div>{ curAppData.test }</div>
-//   </>
-// )

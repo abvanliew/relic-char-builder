@@ -1,13 +1,13 @@
 import { useRef } from 'react';
-import GameLibrary from 'relic/library';
-import { AttribType } from 'relic/characters/attributes';
+import RelicLibrary from 'relic/library';
+import { AttributeType } from 'relic/character/attributes';
 
 interface AttributeProps {
   total: number;
   min: number;
   max: number;
   attributes: Map<string, number>;
-  library: GameLibrary;
+  library: RelicLibrary;
   attribHandler: ( key: string, value: number ) => void;
 }
 
@@ -20,23 +20,23 @@ function Attributes( { ...props }: AttributeProps ): JSX.Element {
     current += val
   }
 
-  for( let [ key, def ] of props.library.attributes ) {
+  for( let [ key, def ] of props.library.attributes.entries() ) {
     let attribLine: JSX.Element = (
       <AttribLine 
-        key = { key } 
-        id = { key } 
-        name = { def.detail.shortName } 
-        ranks = { props.attributes.get( key )??props.min } 
+        key = { def.id } 
+        id = { def.id } 
+        name = { props.library.skills.get( def.id )?.details.name??"NOT FOUND" } 
+        ranks = { props.attributes.get( def.id )??props.min } 
         min = { props.min } 
         max = { props.max } 
         type = { def.type } 
         attribHandler = { props.attribHandler } 
       />
     )
-    if( def.type === AttribType.Abilities ) {
+    if( def.type === AttributeType.Abilities ) {
       abilities.push( attribLine )
     } else 
-    if ( def.type === AttribType.Defenses ) {
+    if ( def.type === AttributeType.Defenses ) {
       defenses.push( attribLine )
     }
   }
@@ -62,7 +62,7 @@ interface AttribLineProps {
   ranks: number;
   min: number;
   max: number;
-  type: AttribType;
+  type: AttributeType;
   attribHandler: ( key: string, value: number ) => void;
 }
 

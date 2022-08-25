@@ -1,0 +1,79 @@
+.skillCardGrid {
+  display: grid;
+  min-width: 320px;
+  max-width: 414px;
+  grid-column: repeat( 3, 1fr );
+  grid-template-areas: 
+    "Name   Name   Tier"
+    "Name   Name   Cost"
+    "Act    Keys   Keys"
+    "Rules  Rules  Rules";
+  border: 2px solid #6c97e7;
+  border-radius: 5px;
+  padding: .4em
+}
+
+.skillCardGrid > .skillName {
+  grid-area: Name;
+  font-weight: 650;
+  font-size: 1.6em;
+}
+
+.skillCardGrid > .skillTier {
+  grid-area: Tier;
+  text-align: right;
+}
+
+.skillCardGrid > .skillCost {
+  grid-area: Cost;
+  text-align: right;
+}
+
+.skillCardGrid > .skillActivation {
+  grid-area: Act;
+}
+
+.skillCardGrid > .skillKeywords {
+  grid-area: Keys;
+  text-align: right;
+  font-style: italic;
+}
+
+.skillCardGrid > .skillRules {
+  grid-area: Rules;
+  border-top: 1px solid #6c97e7;
+}
+
+.skillLineGrid {
+  display: grid;
+  grid-column: repeat( 6, 1fr );
+  grid-template-areas: 
+    "Name  Act  Keys  Rules  Cost  Tier";
+}
+
+.skillLineGrid > .skillName {
+  grid-column: Name;
+}
+
+.skillLineGrid > .skillTier {
+  grid-column: Tier;
+}
+
+.skillLineGrid > .skillCost {
+  grid-column: Cost;
+}
+
+.skillLineGrid > .skillActivation {
+  grid-column: Act;
+}
+
+.skillLineGrid > .skillKeywords {
+  grid-column: Keys;
+  max-width: 160px;
+}
+
+.skillLineGrid > .skillRules {
+  grid-column: Rules;
+  max-width: 500px;
+}
+
