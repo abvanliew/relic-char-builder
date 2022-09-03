@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid"
-import Skills, { Skill } from "relic/skills"
-import { GroupValueType, RuleElement } from "relic/library/rules"
+import { Skill } from "relic/skills"
+import { GroupValueType, RuleLayout, RuleElement } from "relic/library/rules"
 
-function InherentSkills( skills: Map<string, Skill>, keyIds: any ): Map<string, Skill> {
+export default function InherentSkills( skills: Map<string, Skill>, keyIds: any ): Map<string, Skill> {
   skills.set( nanoid(), {
     tier: 0, 
     cost: { id: keyIds.Inherent }, 
@@ -114,7 +114,66 @@ function InherentSkills( skills: Map<string, Skill>, keyIds: any ): Map<string, 
     ] ),
   } )
 
+  skills.set( nanoid(), {
+    tier: 0, 
+    cost: { id: keyIds.Inherent }, 
+    details: { 
+      name: "Hide", 
+      shortDescription: "Hide from other creatures", 
+    }, 
+    activations: new Map<string, RuleElement> ( [ 
+      [ nanoid(), { id: keyIds.Complex } ],
+      [ nanoid(), { id: keyIds.Action } ],
+    ] ), 
+    keywords: new Map<string, RuleElement> ( [ 
+      [ nanoid(), { id: keyIds.Stealth } ],
+    ] ), 
+    rules: new Map<string, GroupValueType> ( [
+      [ nanoid(), { id: keyIds.Target, value: "Any creature that has Obscured vision of you, no light of sight to you or that you have full cover against." } ],
+      [ nanoid(), { layout: RuleLayout.Inline, rules: new Map<string, GroupValueType> ( [
+        [ nanoid(), "Make a " ],
+        [ nanoid(), { ability: { id: keyIds.Manipulation }, defense: { id: keyIds.Insight } } ],
+        [ nanoid(), { id: keyIds.Check } ],
+        [ nanoid(), " against each " ],
+        [ nanoid(), { id: keyIds.Target } ],
+        [ nanoid(), ". If you moved more than half your speed this turn or are only Obscured from the target then make the check at disadvantage." ],
+        [ nanoid(), { indent: true, layout: RuleLayout.Paragraph, rules: new Map<string, GroupValueType> ( [
+          [ nanoid(), { id: keyIds.Success, value: "You are hidden from the target." } ],
+        ] ) } ],
+      ] ) } ],
+    ] ),
+  } )
+
+  skills.set( nanoid(), {
+    tier: 0, 
+    cost: { id: keyIds.Inherent }, 
+    details: { 
+      name: "Push", 
+      shortDescription: "Knock a creature prone or ", 
+    }, 
+    activations: new Map<string, RuleElement> ( [ 
+      [ nanoid(), { id: keyIds.Action } ],
+    ] ), 
+    keywords: new Map<string, RuleElement> ( [ 
+      [ nanoid(), { id: keyIds.Martial } ],
+      [ nanoid(), { id: keyIds.Melee } ],
+    ] ), 
+    rules: new Map<string, GroupValueType> ( [
+      [ nanoid(), { id: keyIds.Target, value: "One creature within melee reach." } ],
+      [ nanoid(), { layout: RuleLayout.Inline, rules: new Map<string, GroupValueType> ( [
+        [ nanoid(), "Make a " ],
+        [ nanoid(), { ability: { id: keyIds.Physique }, defense: { id: keyIds.Tenacity } } ],
+        [ nanoid(), { id: keyIds.Attack } ],
+        [ nanoid(), " against the " ],
+        [ nanoid(), { id: keyIds.Target } ],
+        [ nanoid(), "." ],
+        [ nanoid(), { indent: true, layout: RuleLayout.Paragraph, rules: new Map<string, GroupValueType> ( [
+          [ nanoid(), { id: keyIds.Hit, value: "Choose to either push target 1 space or knock target prone." } ],
+          [ nanoid(), { id: keyIds.Critical, value: "You can choose to do both or push the target 2 spaces." } ],
+        ] ) } ],
+      ] ) } ],
+    ] ),
+  } )
+
   return skills
 }
-
-export default InherentSkills;

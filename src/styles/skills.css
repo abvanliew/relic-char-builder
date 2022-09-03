@@ -2,12 +2,13 @@
   display: grid;
   min-width: 320px;
   max-width: 414px;
-  grid-column: repeat( 3, 1fr );
+  grid-template-columns: repeat( 3, 1fr );
   grid-template-areas: 
-    "Name   Name   Tier"
-    "Name   Name   Cost"
-    "Act    Keys   Keys"
-    "Rules  Rules  Rules";
+    " Name    Name    Act   "
+    " Name    Name    Cost   "
+    " Keys    Keys    Keys  "
+    " Rules   Rules   Rules "
+    " Tier    Reqs    Reqs  ";
   border: 2px solid #6c97e7;
   border-radius: 5px;
   padding: .4em
@@ -21,21 +22,22 @@
 
 .skillCardGrid > .skillTier {
   grid-area: Tier;
-  text-align: right;
+  font-style: italic;
 }
 
 .skillCardGrid > .skillCost {
   grid-area: Cost;
   text-align: right;
+  font-style: italic;
 }
 
-.skillCardGrid > .skillActivation {
+.skillCardGrid > .skillAct {
   grid-area: Act;
+  text-align: right;
 }
 
-.skillCardGrid > .skillKeywords {
+.skillCardGrid > .skillKeys {
   grid-area: Keys;
-  text-align: right;
   font-style: italic;
 }
 
@@ -44,36 +46,49 @@
   border-top: 1px solid #6c97e7;
 }
 
-.skillLineGrid {
+.skillCardGrid > .skillReqs {
+  grid-area: Reqs;
+  text-align: right;
+}
+
+.skillRowGrid {
   display: grid;
-  grid-column: repeat( 6, 1fr );
+  gap: 0 .6em;
   grid-template-areas: 
     "Name  Act  Keys  Rules  Cost  Tier";
 }
 
-.skillLineGrid > .skillName {
-  grid-column: Name;
+.skillHeader {
+  text-decoration: underline;
+  font-size: .8em;
+  padding: 0 .1em;
 }
 
-.skillLineGrid > .skillTier {
+.skillRowGrid > .skillTier {
   grid-column: Tier;
+  text-align: center;
 }
 
-.skillLineGrid > .skillCost {
+.skillRowGrid > .skillCost {
   grid-column: Cost;
+  text-align: center;
 }
 
-.skillLineGrid > .skillActivation {
+.skillRowGrid > .skillAct {
   grid-column: Act;
 }
 
-.skillLineGrid > .skillKeywords {
+.skillRowGrid > .skillKeys {
   grid-column: Keys;
-  max-width: 160px;
+  max-width: 300px;
 }
 
-.skillLineGrid > .skillRules {
+.skillRowGrid > .skillRules {
   grid-column: Rules;
   max-width: 500px;
 }
 
+.skillRowGrid > .skillReqs {
+  grid-column: Reqs;
+  text-align: center;
+}

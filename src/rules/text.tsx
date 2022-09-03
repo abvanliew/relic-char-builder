@@ -1,6 +1,6 @@
 import { debug } from "console";
 import RelicLibrary from "relic/library";
-import { GroupValueType, Layout, RuleElement, VsElement } from "relic/library/rules";
+import { GroupValueType, RuleLayout, RuleElement, VsElement } from "relic/library/rules";
 import { KeywordName } from "rules/detail";
 import ListFormater from "rules/formater";
 
@@ -11,7 +11,7 @@ interface RulesTextProps {
 }
 
 export interface FormattingProps {
-  layout?: Layout
+  layout?: RuleLayout
 }
 
 function RulesText( { ...props }: RulesTextProps ): JSX.Element {
@@ -20,11 +20,11 @@ function RulesText( { ...props }: RulesTextProps ): JSX.Element {
   for( let [ key, val ] of props.rules.entries() ) {
     if( typeof val === 'string' )
       elements.push( 
-        <div key={ key }>{ val }</div> 
+        <div key={ key } className="inline">{ val }</div> 
       )
     else if( 'rules' in val )
       elements.push( 
-        <div key={ key }>
+        <div key={ key } className="inline">
           <RulesText 
             rules={ val.rules } 
             library={ props.library } 
@@ -33,7 +33,7 @@ function RulesText( { ...props }: RulesTextProps ): JSX.Element {
       )
     else if( 'id' in val )
       elements.push( 
-        <div key={ key }>
+        <div key={ key } className="inline">
           <ElementText 
             element={ val } 
             library={ props.library } 
@@ -50,7 +50,7 @@ function RulesText( { ...props }: RulesTextProps ): JSX.Element {
       )
   }
 
-  return <div>{ elements }</div>
+  return <div className="inline">{ elements }</div>
 }
 
 interface VsTextProps {
@@ -61,7 +61,7 @@ interface VsTextProps {
 function VsText( { ...props }: VsTextProps ): JSX.Element {
   return (
     <>
-    <div>
+    <div className="inline">
       <KeywordName 
         id={ props.vs.ability.id } 
         library={ props.library }
@@ -117,13 +117,13 @@ export function ElementsText( { ...props }: ElementsTextProps ): JSX.Element {
         key={ key } 
         element={ val } 
         library={ props.library } 
-      />  
+      />
     )
 
   if( props.format )
     return <ListFormater 
       elements={ elements } 
-      layout={ props.format?.layout??Layout.Inline } 
+      layout={ props.format?.layout??RuleLayout.Inline } 
     />
 
   return <>{ elements }</>

@@ -15,6 +15,7 @@ function DefaultKeyAttribSkills(): [ Keywords, Attributes, Skills ] {
 
 function KeyIds(): any {
   return {
+// Attributes
     Attributes: nanoid(),
 
     Abilities: nanoid(), 
@@ -30,6 +31,7 @@ function KeyIds(): any {
     Resolve: nanoid(), 
     Insight: nanoid(), 
 
+// Damage Types
     Resistances: nanoid(), 
 
     Physical: nanoid(), 
@@ -50,12 +52,39 @@ function KeyIds(): any {
     Necrotic: nanoid(), 
     Psionic: nanoid(), 
 
-    Inherent: nanoid(), 
-    Half: nanoid(), 
-    Full: nanoid(), 
-    Cantrip: nanoid(), 
-    Spell: nanoid(), 
+// Characteristics
+    Health: nanoid(),
+    Constitution: nanoid(),
+    Speed: nanoid(),
 
+// Resource Flows and Pools 
+    MagicFlow: nanoid(),
+    StillariMana: nanoid(),
+    UndaMana: nanoid(),
+    AmnisMana: nanoid(),
+
+    ResonanceFlow: nanoid(),
+    ChannelPool: nanoid(),
+    InspirationPool: nanoid(),
+    MasteryPool: nanoid(),
+    KiPool: nanoid(),
+
+    InnateFlow: nanoid(),
+    AnoitmentPool: nanoid(),
+    RagePool: nanoid(),
+    SanguinePool: nanoid(),
+
+// Spell Types and Slots
+    Conduit: nanoid(),
+
+// Skill costs
+    Inherent: nanoid(), 
+    LearnHalf: nanoid(), 
+    LearnFull: nanoid(), 
+    LearnCantrip: nanoid(), 
+    LearnSpell: nanoid(), 
+
+// Activation Keywords
     Action: nanoid(), 
     Reaction: nanoid(), 
     Trigger: nanoid(), 
@@ -64,24 +93,29 @@ function KeyIds(): any {
     Initial: nanoid(), 
     Free: nanoid(), 
     Extended: nanoid(), 
-    
+
+// Roll types
     Attack: nanoid(),
     Check: nanoid(),
     Luck: nanoid(),
 
+// Roll Results
     Miss: nanoid(),
     Fail: nanoid(),
     Hit: nanoid(),
     Success: nanoid(),
     Critical: nanoid(),
 
+// Common Skill Rules
     Advantage: nanoid(), 
     Disadvantage: nanoid(), 
     Duration: nanoid(), 
     Condition: nanoid(), 
     Target: nanoid(), 
 
+// Basic Skill Catagorization
     Movement: nanoid(), 
+    Stealth: nanoid(), 
     Resistance: nanoid(), 
     Defense: nanoid(), 
 
@@ -99,6 +133,7 @@ function KeyIds(): any {
     Supernatural: nanoid(), 
 
     Magic: nanoid(), 
+    Spell: nanoid(), 
     Arcane: nanoid(), 
     Divine: nanoid(), 
     Nature: nanoid(), 
@@ -143,10 +178,10 @@ function DefaultKeywords( keyIds: any ): Keywords {
     [ keyIds.Psionic, { name: "Psionic" } ],
 
     [ keyIds.Inherent, { name: "Inherent" } ],
-    [ keyIds.Half, { name: "Half" } ],
-    [ keyIds.Full, { name: "Full" } ],
-    [ keyIds.Cantrip, { name: "Cantrip" } ],
-    [ keyIds.Spell, { name: "Spell" } ],
+    [ keyIds.LearnHalf, { name: "Half" } ],
+    [ keyIds.LearnFull, { name: "Full" } ],
+    [ keyIds.LearnCantrip, { name: "Cantrip" } ],
+    [ keyIds.LearnSpell, { name: "Spell" } ],
 
     [ keyIds.Attack, { name: "Attack" } ],
     [ keyIds.Check, { name: "Check" } ],
@@ -174,6 +209,7 @@ function DefaultKeywords( keyIds: any ): Keywords {
     [ keyIds.Target, { name: "Target" } ],
 
     [ keyIds.Movement, { name: "Movement" } ],
+    [ keyIds.Stealth, { name: "Stealth" } ],
     [ keyIds.Resistance, { name: "Resistance" } ],
     [ keyIds.Defense, { name: "Defense" } ],
 

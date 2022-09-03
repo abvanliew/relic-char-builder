@@ -8,10 +8,10 @@ interface RuleDetail {
 export interface RuleGroup {
   rules: Map<string, GroupValueType>
   indent?: boolean
-  layout?: Layout
+  layout?: RuleLayout
 }
 
-export const enum Layout {
+export const enum RuleLayout {
   Inline = 0,
   Delimited,
   Paragraph

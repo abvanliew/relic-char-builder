@@ -43,13 +43,13 @@ function App(): JSX.Element {
 
 function Body(): JSX.Element {
   return (
-    <div className="mainGrid">
-      <div className="mainGridHeader">
-        <Link className="plain" to={ "/" }>Home</Link>
-        <Link className="plain" to={ "editor" }>Editor</Link>
-        <Link className="plain" to={ "skills" }>Skills</Link>
+    <div className="main">
+      <div className="mainHeader">
+        <Link className="plain" to="/">Home</Link>
+        <Link className="plain" to="editor">Editor</Link>
+        <Link className="plain" to="skills">Skills</Link>
       </div>
-      <div className='mainGridBody'>
+      <div className="mainBody">
         <Outlet/>
       </div>
     </div>
